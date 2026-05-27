@@ -1,0 +1,40 @@
+[package]
+name = "joycon-merger"
+version = "0.1.0"
+edition = "2021"
+authors = ["You"]
+description = "Merges two Nintendo Switch Joy-Cons into one virtual Xbox controller on Windows"
+
+[[bin]]
+name = "joycon-merger"
+path = "src/main.rs"
+
+[dependencies]
+# HID device access (Joy-Con Bluetooth)
+hidapi = "2.6"
+
+# Virtual Xbox controller via ViGEmBus driver
+vigem-client = "0.1"
+
+# GUI
+eframe = { version = "0.27", features = ["default"] }
+egui   = "0.27"
+
+# Logging
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+# Error handling
+anyhow = "1"
+
+# Cross-thread channels
+crossbeam-channel = "0.5"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+strip = true
+
+[profile.dev]
+opt-level = 1
